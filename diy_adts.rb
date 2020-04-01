@@ -70,4 +70,42 @@ end
 # q.dequeue
 # p q.queue
 
+class Map
 
+    def initialize
+        @map =  Array.new() { Array.new() }
+    end
+
+    def set(key, value)
+        unless @map.any? { |pair| pair[0] == key }
+            @map << [key, value]
+        end
+    end
+
+    def get(key)
+        @map.each { |pair| return pair[1] if pair[0] == key }
+    end
+
+    def delete(key)
+        if @map.any? { |pair| pair[0] == key }
+            target = 0
+            @map.each.with_index { |pair, idx| target = idx if pair[0] == key }
+            @map.delete_at(target)
+        end
+    end
+
+    def show
+        p @map
+    end
+
+end
+
+#code for testing
+m = Map.new
+m.set(1, 2)
+m.set(2, 3)
+m.set(1, 3)
+m.show
+p m.get(1)
+m.delete(1)
+m.show
